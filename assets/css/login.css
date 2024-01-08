@@ -14,7 +14,7 @@
 		.form-signin {
 		    width: 100%;
 		    padding: 10px 15px; 
-		    background-color: #007bff; /* Puedes poner el color que quieras */
+		    background-color: #fef5f0; /* Puedes poner el color que quieras */
 		    color: white; /* Texto blanco */
 		    box-shadow: 0px 2px 4px rgba(0,0,0,0.2); /* Sombra opcional */
 		}
