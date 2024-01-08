@@ -14,76 +14,76 @@
     <h1 class="h3 mb-3 fw-normal" id="user_name">Acceso</h1>
 
     <!-- Botón de inicio de sesión de Google -->
-    <button onclick="loginWithGoogle()" class="w-100 btn btn-lg btn-danger">Iniciar con Google</button>
+    <button onclick="loginWithGoogle()" class="w-100 btn btn-lg btn-danger" id="login_btn_google">Iniciar con Google</button>
     
     <!-- Botón de inicio de sesión de Facebook -->
-    <button onclick="loginFacebook()" class="w-100 btn btn-lg btn-primary mt-2">Iniciar con Facebook</button>
+    <button onclick="loginFacebook()" class="w-100 btn btn-lg btn-primary mt-2" id="login_btn_facebook">Iniciar con Facebook</button>
     
-    <!-- Botón de cerrar sesión -->
+    <!-- Botón de cerrar sesión (oculto inicialmente) -->
     <button onclick="logout()" style="display: none;" class="w-100 btn btn-lg btn-secondary mt-2" id="logout_btn">Salir</button>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
-
-<script type="text/javascript">
+<script>
+// Tu configuración de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyBTLWz3otqAVPaLtaEH4-8Y1pdPwvimy44",
-    authDomain: "evaluacion-3er.firebaseapp.com",
-    projectId: "evaluacion-3er",
-    storageBucket: "evaluacion-3er.appspot.com",
-    messagingSenderId: "349123214637",
-    appId: "1:349123214637:web:9cc6c6d2135beb9253e7a4"
+    // ... tus configuraciones de Firebase...
 };
 
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var login_btn = document.getElementById("login_btn");
-var logout_btn = document.getElementById("logout_btn");
-var user_image = document.getElementById("user_image");
-var user_name_h1 = document.getElementById("user_name");
-
-var loginWithGoogle = function() {
+// Funciones de autenticación
+function loginWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
         var user = result.user;
-        updateUser(user);
+        updateUser(user, true);
     }).catch(function(error) {
-        console.log(error.message);
+        console.error(error);
     });
-};
+}
 
-var loginFacebook = function() {
+function loginFacebook() {
     var provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
-        var token = result.credential.accessToken;
         var user = result.user;
-        updateUser(user);
+        updateUser(user, true);
     }).catch(function(error) {
-        console.log(error.message);
+        console.error(error);
     });
-};
+}
 
-var logout = function() {
+function logout() {
     firebase.auth().signOut().then(function() {
-        user_name_h1.innerHTML = "Acceso";
-        user_image.src = "assets/images/JimeCoding.jpg";
-        login_btn.style.display = "inline-block";
-        logout_btn.style.display = "none";
+        updateUser(null, false);
     }).catch(function(error) {
-        console.log(error.message);
+        console.error(error);
     });
-};
+}
 
-var updateUser = function(user) {
-    user_name_h1.innerHTML = "Hola, " + user.displayName;
-    user_image.src = user.photoURL;
-    login_btn.style.display = "none";
-    logout_btn.style.display = "inline-block";
-};
+function updateUser(user, isLoggedIn) {
+    var userImage = document.getElementById('user_image');
+    var userNameH1 = document.getElementById('user_name');
+    var logoutBtn = document.getElementById('logout_btn');
+    var loginBtnGoogle = document.getElementById('login_btn_google');
+    var loginBtnFacebook = document.getElementById('login_btn_facebook');
+
+    if (isLoggedIn) {
+        userNameH1.innerHTML = 'Hola, ' + user.displayName;
+        userImage.src = user.photoURL;
+        loginBtnGoogle.style.display = 'none';
+        loginBtnFacebook.style.display = 'none';
+        logoutBtn.style.display = 'block';
+    } else {
+        userNameH1.innerHTML = 'Acceso';
+        userImage.src = 'assets/images/JimeCoding.jpg'; // Tu imagen predeterminada
+        loginBtnGoogle.style.display = 'block';
+        loginBtnFacebook.style.display = 'block';
+        logoutBtn.style.display = 'none';
+    }
+}
 </script>
 
 </body>
