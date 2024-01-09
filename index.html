@@ -113,10 +113,16 @@ function updateUser(user, isLoggedIn) {
     }
 }
 </script>
-<div id="admin-content" style="display:none;">Contenido solo para administradores osi....</div>
+
+
+<!-- SOLO ADMINISTRADORES, EXTRA SOLO Borrar -->
+<div id="admin-content">Contenido solo para administradores osi....</div>
 	<script type="module"
     		src="js/CtrlSesion.js">
    	 </script>
+<!-- FIN del apartado -->
+
+
 <script>
 	function getFirestore() {
   // @ts-ignore
@@ -160,5 +166,6 @@ auth.onAuthStateChanged(user => {
   }
 });
 </script>
+
 </body>
 </html>
