@@ -91,6 +91,39 @@ function updateUser(user, isLoggedIn) {
     }
 }
 </script>
+<div id="admin-content">Contenido solo para administradores osi</div>
+	<script type="module"
+    		src="js/CtrlSesion.js">
+   	 </script>
+<script>
+	import { getFirestore, getAuth } from "js/fabrica.js";
 
+const auth = getAuth();
+const firestore = getFirestore();
+const daoUsuario = firestore.collection("Usuario");
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    // El usuario está autenticado
+    daoUsuario.doc(user.uid).get().then(doc => {
+      const userData = doc.data();
+      // Verificar si el usuario tiene el rol de administrador
+      if (userData.rolIds.includes("Administrador")) {
+        // Mostrar contenido para administradores
+        document.getElementById("admin-content").style.display = "block";
+      } else {
+        // Ocultar contenido para administradores si no tiene el rol
+        document.getElementById("admin-content").style.display = "none";
+      }
+    }).catch(error => {
+      console.error("Error al obtener el usuario:", error);
+    });
+  } else {
+    // El usuario no está autenticado o cerró sesión
+    // Ocultar contenido para administradores
+    document.getElementById("admin-content").style.display = "none";
+  }
+});
+</script>
 </body>
 </html>
