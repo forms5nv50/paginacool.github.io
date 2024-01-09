@@ -65,6 +65,7 @@ function loginWithGoogle() {
     firebase.auth().signInWithPopup(provider).then(function(result) {
         var user = result.user;
         updateUser(user, true);
+	    
     }).catch(function(error) {
         console.error(error);
     });
@@ -79,7 +80,11 @@ function loginFacebook() {
         console.error(error);
     });
 }
-
+	
+function redireccion(){
+location.href = "https://forms5nv50.github.io/paginacool.github.io/home"
+}
+	
 function logout() {
     firebase.auth().signOut().then(function() {
         updateUser(null, false);
