@@ -291,8 +291,9 @@ body {
     
       <div class="blog-slider__content">
         <script>
-
-      initializeApp(firebaseConfig);
+      
+          firebase.initializeApp(firebaseConfig);
+      
       const db = getFirestore();
       async function cargarHerramientasApple() {
   // Seleccionamos el contenedor donde queremos insertar los divs
