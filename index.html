@@ -65,7 +65,7 @@ function loginWithGoogle() {
     firebase.auth().signInWithPopup(provider).then(function(result) {
         var user = result.user;
         updateUser(user, true);
-	    
+        location.href = "https://forms5nv50.github.io/paginacool.github.io/home"
     }).catch(function(error) {
         console.error(error);
     });
