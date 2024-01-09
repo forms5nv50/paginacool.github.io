@@ -1,4 +1,4 @@
-import { getFirestore } from "fabrica.js";
+import { getFirestore } from "./fabrica.js";
 
 export async function asignarRolCliente(userId) {
   const firestore = getFirestore();
