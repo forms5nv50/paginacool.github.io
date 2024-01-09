@@ -116,7 +116,20 @@ function updateUser(user, isLoggedIn) {
     		src="js/CtrlSesion.js">
    	 </script>
 <script>
-	import { getFirestore, getAuth } from "js/fabrica.js";
+	function getFirestore() {
+  // @ts-ignore
+  return firebase.firestore();
+}
+
+/** Conexión al sistema de
+ * autenticación de Firebase.
+ *  @returns {
+      import("./tiposFire").
+      Auth} */
+export function getAuth() {
+  // @ts-ignore
+  return firebase.auth();
+}
 
 const auth = getAuth();
 const firestore = getFirestore();
