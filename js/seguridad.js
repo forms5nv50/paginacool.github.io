@@ -1,9 +1,9 @@
 import { getAuth,
   getFirestore
-} from "../lib/fabrica.js";
+} from "fabrica.js";
 import {
   muestraError
-} from "../lib/util.js";
+} from "util.js";
 
 const firestore = getFirestore();
 const daoUsuario = firestore.
