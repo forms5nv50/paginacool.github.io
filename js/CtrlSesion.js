@@ -92,8 +92,6 @@ async function
     forma.terminarSesión.
       addEventListener(
         "click", terminaSesión);
-  } else {
-    // No ha iniciado sesión.
-    iniciaSesión();
+  } 
   }
 }
