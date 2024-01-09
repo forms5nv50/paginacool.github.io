@@ -1,7 +1,7 @@
 /** Conexión a la base de datos
  * de Firebase.
  *  @returns {
-      import("tiposFire").
+      import("./tiposFire").
       Firestore} */
 export function getFirestore() {
   // @ts-ignore
@@ -11,7 +11,7 @@ export function getFirestore() {
 /** Conexión al sistema de
  * autenticación de Firebase.
  *  @returns {
-      import("tiposFire").
+      import("./tiposFire").
       Auth} */
 export function getAuth() {
   // @ts-ignore
@@ -21,7 +21,7 @@ export function getAuth() {
 /** Conexión al sistema de
  * storage de Firebase.
  *  @returns {
-      import("tiposFire").
+      import("./tiposFire").
       Storage} */
 export function getStorage() {
   // @ts-ignore
