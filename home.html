@@ -306,57 +306,9 @@ body {
       </div>
     
       <div class="blog-slider__content">
-        <script>
-      const firebaseConfig = {
-  apiKey: "AIzaSyBTLWz3otqAVPaLtaEH4-8Y1pdPwvimy44",
-  authDomain: "evaluacion-3er.firebaseapp.com",
-  projectId: "evaluacion-3er",
-  storageBucket: "evaluacion-3er.appspot.com",
-  messagingSenderId: "349123214637",
-  appId: "1:349123214637:web:9cc6c6d2135beb9253e7a4"
-};
-          firebase.initializeApp(firebaseConfig);
-      
-      const db = getFirestore();
-      async function cargarHerramientasApple() {
-  // Seleccionamos el contenedor donde queremos insertar los divs
-  const container = document.querySelector('.tu-contenedor-selector'); // Usa el selector adecuado del contenedor
 
-  try {
-    // Obtenemos los documentos de la colección 'HerramientasApple'
-    const querySnapshot = await getDocs(collection(db, "HerramientasApple"));
-    
-    // Vaciamos el contenedor antes de agregar los nuevos divs
-    container.innerHTML = '';
 
-    // Iteramos sobre los documentos obtenidos
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-
-      // Creamos el div que contendrá la información
-      const blogSliderContent = document.createElement('div');
-      blogSliderContent.className = 'blog-slider__content';
-
-      // Configuramos el HTML interno del div con los datos de Firestore
-      blogSliderContent.innerHTML = `
-        <span class="blog-slider__code">${data['fecha-lanzamiento']}</span>
-        <div class="blog-slider__title">${data.Nombre}</div>
-        <div class="blog-slider__text">${data.detalles}</div>
-        <div class="blog-slider__color">${data.color}</div>
-      `;
-
-      // Añadimos el div recién creado al contenedor
-      container.appendChild(blogSliderContent);
-    });
-  } catch (error) {
-    console.error("Error al obtener documentos: ", error);
-  }
-}
-
-// Llamamos a la función para cargar los datos cuando el documento esté listo
-cargarHerramientasApple();
-      
-    </script>
+        
         <a href="#" class="Actualizar">Actualizar</a>
         <a href="#" class="Borrar">Borrar</a>
         <a href="#" class="Crear Publicación">Crear publicacion</a>
@@ -439,7 +391,74 @@ var swiper = new Swiper('.blog-slider', {
     delay: 5000 } });
 //# sourceURL=pen.js
     </script>
+<!-- Firebase App (el core de Firebase JS SDK) es siempre requerido y debe estar listo antes que cualquier otro producto Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <!-- Firebase Auth y otros servicios que quieras utilizar -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
+  <!-- Configuración e inicialización de Firebase -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBTLWz3otqAVPaLtaEH4-8Y1pdPwvimy44",
+  authDomain: "evaluacion-3er.firebaseapp.com",
+  projectId: "evaluacion-3er",
+  storageBucket: "evaluacion-3er.appspot.com",
+  messagingSenderId: "349123214637",
+  appId: "1:349123214637:web:9cc6c6d2135beb9253e7a4"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Obtener la base de datos Firestore directamente
+    const db = firebase.firestore();
+
+    async function cargarHerramientasApple() {
+      const container = document.querySelector('.blog-slider__wrp'); // Asegúrate de que este selector sea correcto
+      try {
+        const querySnapshot = await db.collection("HerramientasApple").get();
+        // Limpia el contenedor antes de agregar los nuevos divs
+        container.innerHTML = '';
+        
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const blogSliderContent = document.createElement('div');
+          blogSliderContent.className = 'blog-slider__content';
+
+          blogSliderContent.innerHTML = `
+            <span class="blog-slider__code">${data['fecha-lanzamiento']}</span>
+            <div class="blog-slider__title">${data.Nombre}</div>
+            <div class="blog-slider__text">${data.detalles}</div>
+            <div class="blog-slider__color">${data.color}</div>
+            <a href="#" class="blog-slider__button">READ MORE</a>
+          `;
+          container.appendChild(blogSliderContent);
+        });
+      } catch (error) {
+        console.error("Error al obtener documentos: ", error);
+      }
+    }
+
+    // Llama a la función después de que la página ha cargado.
+    cargarHerramientasApple();
+  </script>
+
+  <!-- Script para Swiper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+  <script>
+    var swiper = new Swiper('.blog-slider', {
+      spaceBetween: 30,
+      effect: 'fade',
+      loop: true,
+      mousewheel: { invert: false },
+      pagination: {
+        el: '.blog-slider__pagination',
+        clickable: true
+      },
+      autoplay: { delay: 5000 }
+    });
+    //# sourceURL=pen.js
+  </script>
   
 
 
