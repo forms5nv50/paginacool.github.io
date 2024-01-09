@@ -1,4 +1,22 @@
 <head>
+    <script>
+    var swiper = new Swiper('.blog-slider', {
+      spaceBetween: 30,
+      effect: 'fade',
+      loop: true,
+      mousewheel: {
+        invert: false,
+      },
+      // autoHeight: true,
+      pagination: {
+        el: '.blog-slider__pagination',
+        clickable: true,
+      },
+     autoplay: {
+      delay: 5000,
+      },
+    });
+    </script>
     <style>
         @import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
 * {
@@ -264,24 +282,7 @@ body {
 }
     </style>
 </head>
-<script>
-    var swiper = new Swiper('.blog-slider', {
-      spaceBetween: 30,
-      effect: 'fade',
-      loop: true,
-      mousewheel: {
-        invert: false,
-      },
-      // autoHeight: true,
-      pagination: {
-        el: '.blog-slider__pagination',
-        clickable: true,
-      },
-     autoplay: {
-      delay: 5000,
-      },
-    });
-    </script>
+
 <body>
     <div class="blog-slider">
     <div class="blog-slider__wrp swiper-wrapper">
